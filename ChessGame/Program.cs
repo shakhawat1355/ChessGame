@@ -10,4 +10,4 @@ board.boardPrinter();
 Console.WriteLine( "Input a move:");
 string input = Console.ReadLine();
 
-board
+board.updatePosition(input);   

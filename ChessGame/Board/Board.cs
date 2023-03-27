@@ -20,7 +20,7 @@ namespace ChessGame.Board
     { 86, 'f' },
     { 87, 'g' },
     { 88, 'h' },
-                { 80, ' ' }
+    { 80, ' ' }
 };
 
         Dictionary<int, int> digitLayer = new Dictionary<int, int>
@@ -127,7 +127,8 @@ namespace ChessGame.Board
 
         public void updatePosition(string position)
         {
-
+            var x= inputFormatter(position);
+            Console.WriteLine(x);
 
         }
 
