@@ -125,9 +125,37 @@ namespace ChessGame.Board
         }
 
 
-        public void updatePosition()
+        public void updatePosition(string position)
         {
 
+
+        }
+
+            public static (int, char) inputFormatter(string input)
+            {
+                if (input.Length != 2)
+                {
+                    throw new ArgumentException("Input string must be exactly two characters long");
+                }
+                char firstChar = input[0];
+                char secondChar = input[1];
+                if (Char.IsDigit(firstChar) && Char.IsLetter(secondChar))
+                {
+                    int number = int.Parse(firstChar.ToString());
+                    char character = char.Parse(secondChar.ToString());
+                    return (number, character);
+                }
+                else if (Char.IsLetter(firstChar) && Char.IsDigit(secondChar))
+                {
+                    int number = int.Parse(secondChar.ToString());
+                    char character = char.Parse(firstChar.ToString());
+                    return (number, character);
+                }
+                else
+                {
+                    throw new ArgumentException("Input string must contain one digit and one letter");
+                }
+            
 
         }
 
