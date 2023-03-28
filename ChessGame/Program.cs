@@ -7,7 +7,12 @@ board.surface[1, 1] = 1;
 
 board.boardPrinter();
 
-Console.WriteLine( "Input a move:");
-string input = Console.ReadLine();
+Console.WriteLine( "Select A position: ");
+string source = Console.ReadLine();
 
-board.updatePosition(input);   
+Console.WriteLine("select target position: ");
+string target = Console.ReadLine();
+
+
+board.updatePosition(source,target);
+board.boardPrinter();

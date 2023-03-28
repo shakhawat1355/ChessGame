@@ -137,15 +137,24 @@ namespace ChessGame.Board
         }
 
 
-        public void updatePosition(string position)
+        public void updatePosition(string source, string target)
         {
-            var x= inputFormatter(position);
-            Console.WriteLine(x.Item1);
-            Console.WriteLine(mappedAlphabets[x.Item2]);
+            var s = inputFormatter(source);
+            var t = inputFormatter(target);
+            Console.Write(s.Item1);
+            Console.WriteLine(mappedAlphabets[s.Item2]);
+
+            Console.Write(t.Item1);
+            Console.WriteLine(mappedAlphabets[t.Item2]);
+
+            mappedChars[t.Item1 * 10 + mappedAlphabets[t.Item2]] = mappedChars[s.Item1 * 10 + mappedAlphabets[s.Item2]];
+            mappedChars[s.Item1*10+ mappedAlphabets[s.Item2]] = ". ";
+           
+
 
         }
 
-            public static (int, char) inputFormatter(string input)
+        public static (int, char) inputFormatter(string input)
             {
                 if (input.Length != 2)
                 {
