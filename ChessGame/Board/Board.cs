@@ -10,78 +10,86 @@ namespace ChessGame.Board
     public class Board
     {
         public int[,] surface = new int[8, 8];
-        Dictionary<int, char> alphabetLayer = new Dictionary<int, char>
+        Dictionary<int, string> mappedChars = new Dictionary<int, string>
 {
-    { 81, 'a' },
-    { 82, 'b' },
-    { 83, 'c' },
-    { 84, 'd' },
-    { 85, 'e' },
-    { 86, 'f' },
-    { 87, 'g' },
-    { 88, 'h' },
-    { 80, ' ' }
+    { 10, "1" },
+    { 20, "2" },
+    { 30, "3" },
+    { 40, "4" },
+    { 50, "5" },
+    { 60, "6" },
+    { 70, "7" },
+    { 80, null },
+    { 00, "0" },
+    { 81, " a " },
+    { 82, "b " },
+    { 83, "c " },
+    { 84, "d " },
+    { 85, "e " },
+    { 86, "f " },
+    { 87, "g " },
+    { 88, "h " },
+    { 11, "BP" },
+    { 12, "BP" },
+    { 13, "BP" },
+    { 14, "BP" },
+    { 15, "BP" },
+    { 16, "BP" },
+    { 17, "BP" },
+    { 18, "BP" },
+    { 61, "WP" },
+    { 62, "WP" },
+    { 63, "WP" },
+    { 64, "WP" },
+    { 65, "WP" },
+    { 66, "WP" },
+    { 67, "WP" },
+    { 68, "WP" }
 };
 
-        Dictionary<int, int> digitLayer = new Dictionary<int, int>
+        Dictionary<char, int> mappedAlphabets = new Dictionary<char, int>
 {
-    { 00, 1 },
-    { 10, 2 },
-    { 20, 3 },
-    { 30, 4 },
-    { 40, 5 },
-    { 50, 6 },
-    { 60, 7 },
-    { 70, 8 }
- };
+    { 'a', 1 },
+    { 'b', 2 },
+    { 'c', 3 },
+    { 'd', 4 },
+    { 'e', 5 },
+    { 'f', 6 },
+    { 'g', 7 },
+    { 'h', 8 }
+};
 
 
-        Dictionary<int, char> playerWhite = new Dictionary<int, char>
-{
 
-    { 61, 'p' },
-    { 62, 'p' },
-    { 63, 'p' },
-    { 64, 'p' },
-    { 65, 'p' },
-    { 66, 'p' },
-    { 67, 'p' },
-    { 68, 'p' },
-    { 71, 'B' },
-    { 72, 'H' },
-    { 73, 'E' },
-    { 74, 'Q' },
-    { 75, 'K' },
-    { 76, 'E' },
-    { 77, 'H' },
-    { 78, 'B' },
- };
 
-        Dictionary<int, char> playerBlack = new Dictionary<int, char>
-{
 
-    { 1, 'p' },
-    { 2, 'p' },
-    { 3, 'p' },
-    { 4, 'p' },
-    { 5, 'p' },
-    { 6, 'p' },
-    { 7, 'p' },
-    { 8, 'p' },
-    { 11, 'B' },
-    { 12, 'H' },
-    { 13, 'E' },
-    { 14, 'Q' },
-    { 15, 'K' },
-    { 16, 'E' },
-    { 17, 'H' },
-    { 18, 'B' },
- };
         public Board()
         {
 
             Array.Clear(surface, 0, surface.Length);
+            // Create the mappedCharsping using KeyValuePair<int, string>
 
+
+            string[] arr1to8 = new string[] { "BB", "BH", "BE", "BK", "BQ", "BE", "BH", "BB" };
+            string[] arr61to68 = new string[] { "WB", "WH", "WE", "WK", "WQ", "WE", "WH", "WB" };
+
+            for (int i = 1; i <= 8; i++)
+            {
+                mappedChars.Add(i, arr1to8[i - 1]);
+            }
+
+            for (int i = 71; i <= 78; i++)
+            {
+                mappedChars.Add(i, arr61to68[i - 71]);
+            }
+
+            for (int i = 0; i <= 88; i++)
+            {
+                if (!mappedChars.ContainsKey(i))
+                {
+                    mappedChars.Add(i, ". ");
+                }
+            }
 
         }
 
@@ -93,24 +101,24 @@ namespace ChessGame.Board
                 {
                     int key = i * 10 + j;
                     //Console.Write(surface[i, j] + " ");
-                    if (alphabetLayer.ContainsKey(key))
+                    if (mappedChars.ContainsKey(key))
                     {
-                        Console.Write(alphabetLayer[key]);
+                        Console.Write(mappedChars[key]);
                         Console.Write("  ");
                     }
-                    else if (digitLayer.ContainsKey(key))
+                    else if (mappedChars.ContainsKey(key))
                     {
-                        Console.Write(digitLayer[key]);
+                        Console.Write(mappedChars[key]);
                         Console.Write("  ");
                     }
-                    else if (playerWhite.ContainsKey(key))
+                    else if (mappedChars.ContainsKey(key))
                     {
-                        Console.Write(playerWhite[key]);
+                        Console.Write(mappedChars[key]);
                         Console.Write("  ");
                     }
-                    else if (playerBlack.ContainsKey(key))
+                    else if (mappedChars.ContainsKey(key))
                     {
-                        Console.Write(playerBlack[key]);
+                        Console.Write(mappedChars[key]);
                         Console.Write("  ");
                     }
                     else
@@ -119,6 +127,10 @@ namespace ChessGame.Board
                         Console.Write(j);
                         Console.Write(" ");
                     }
+
+/*                    Console.Write(i);
+                    Console.Write(j);
+                    Console.Write(" ");*/
                 }
                 Console.WriteLine();
             }
@@ -128,7 +140,8 @@ namespace ChessGame.Board
         public void updatePosition(string position)
         {
             var x= inputFormatter(position);
-            Console.WriteLine(x);
+            Console.WriteLine(x.Item1);
+            Console.WriteLine(mappedAlphabets[x.Item2]);
 
         }
 
