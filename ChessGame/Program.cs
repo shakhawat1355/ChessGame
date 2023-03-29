@@ -1,6 +1,10 @@
 ﻿
 using ChessGame.Board;
 
+
+
+Console.OutputEncoding = System.Text.Encoding.Unicode;
+
 Board board = new Board();
 
 board.surface[1, 1] = 1;
