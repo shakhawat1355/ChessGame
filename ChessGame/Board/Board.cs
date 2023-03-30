@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessGame.Game;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,11 @@ namespace ChessGame.Board
     public class Board
     {
         public int[,] surface = new int[8, 8];
+        string[] blackPieces = new string[] { "♜", "♞", "♝", "♚", "♛", "♝", "♞", "♜" };
+        string[] whitePieces = new string[] { "♖", "♘", "♗", "♔", "♕", "♗", "♘", "♖" };
+        int[] possibleMovesForPiece = { };
+
+
         Dictionary<int, string> mappedChars = new Dictionary<int, string>
 {
     { 10, "1" },
@@ -70,18 +76,17 @@ namespace ChessGame.Board
             // Create the mappedCharsping using KeyValuePair<int, string>
 
 
-            string[] arr1to8 = new string[] { "♜", "♞", "♝", "♚", "♛", "♝", "♞", "♜" };
-            string[] arr61to68 = new string[] { "♖", "♘", "♗", "♔", "♕", "♗", "♘", "♖" };
+
 /*﻿♔ ♕ ♖ ♗ ♘ ♙
 ♚ ♛ ♜ ♝ ♞ ♟︎*/
             for (int i = 1; i <= 8; i++)
             {
-                mappedChars.Add(i, arr1to8[i - 1]);
+                mappedChars.Add(i, blackPieces[i - 1]);
             }
 
             for (int i = 71; i <= 78; i++)
             {
-                mappedChars.Add(i, arr61to68[i - 71]);
+                mappedChars.Add(i, whitePieces[i - 71]);
             }
 
             for (int i = 0; i <= 88; i++)
@@ -103,25 +108,36 @@ namespace ChessGame.Board
                     int key = i * 10 + j;
                     //Console.Write(surface[i, j] + " ");
 
-                    if(key%10!=0 && key<80)
+                    //Map color here
+
+                    if (key%10!=0 && key<80)
                     {
-                        if ((i + j) % 2 == 0)
-                        {
-                            Console.BackgroundColor = ConsoleColor.Yellow;
+                        if(possibleMovesForPiece.Any(item => item == key)){
+                            Console.BackgroundColor = ConsoleColor.DarkCyan;
                             Console.Write("  ");
                         }
-                        // Otherwise, print a white square
                         else
                         {
-                            Console.BackgroundColor = ConsoleColor.DarkRed;
-                            Console.Write("  ");
+                            if ((i + j) % 2 == 0)
+                            {
+                                Console.BackgroundColor = ConsoleColor.Yellow;
+                                Console.Write("  ");
+                            }
+                            // Otherwise, print a white square
+                            else
+                            {
+                                Console.BackgroundColor = ConsoleColor.DarkRed;
+                                Console.Write("  ");
+                            }
                         }
+
                     }
                     else
                     {
                         Console.ResetColor();
                     }
 
+                    //Map Character here
 
                     if (mappedChars.ContainsKey(key))
                     {
@@ -157,6 +173,8 @@ namespace ChessGame.Board
                 }
                 Console.WriteLine();
             }
+            Array.Clear(possibleMovesForPiece, 0, possibleMovesForPiece.Length);
+
         }
 
 
@@ -170,9 +188,24 @@ namespace ChessGame.Board
             //Console.Write(t.Item1);
             //Console.WriteLine(mappedAlphabets[t.Item2]);
 
-            mappedChars[t.Item1 * 10 + mappedAlphabets[t.Item2]] = mappedChars[s.Item1 * 10 + mappedAlphabets[s.Item2]];
-            mappedChars[s.Item1*10+ mappedAlphabets[s.Item2]] = " ";
-           
+            /*            mappedChars[t.Item1 * 10 + mappedAlphabets[t.Item2]] = mappedChars[s.Item1 * 10 + mappedAlphabets[s.Item2]];
+                        mappedChars[s.Item1*10+ mappedAlphabets[s.Item2]] = " ";*/
+            bool isWhite = whitePieces.Any(piece => piece == mappedChars[s.Item1 * 10 + mappedAlphabets[s.Item2]]);
+
+            int Spos = s.Item1 * 10 + mappedAlphabets[s.Item2];
+            Console.WriteLine(isWhite);
+
+            int[] possibleMoves = Pawn.possibleMoves(mappedChars, Spos, isWhite);
+
+            for (int i = 0; i < possibleMoves.Length; i++)
+            {
+                Console.WriteLine(possibleMoves[i]);
+            }
+
+            possibleMovesForPiece = possibleMoves;
+
+
+
 
 
         }
