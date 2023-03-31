@@ -11,8 +11,8 @@ namespace ChessGame.Board
     public class Board
     {
         public int[,] surface = new int[8, 8];
-        string[] blackPieces = new string[] { "♜", "♞", "♝", "♚", "♛", "♝", "♞", "♜" };
-        string[] whitePieces = new string[] { "♖", "♘", "♗", "♔", "♕", "♗", "♘", "♖" };
+        string[] blackPieces = new string[] { "♜", "♞", "♝", "♚", "♛", "♝", "♞", "♜" , "♟" };
+        string[] whitePieces = new string[] { "♖", "♘", "♗", "♔", "♕", "♗", "♘", "♖" ,"♙" };
         int[] possibleMovesForPiece = { };
 
 
@@ -113,7 +113,7 @@ namespace ChessGame.Board
                     if (key%10!=0 && key<80)
                     {
                         if(possibleMovesForPiece.Any(item => item == key)){
-                            Console.BackgroundColor = ConsoleColor.DarkCyan;
+                            Console.BackgroundColor = ConsoleColor.Cyan;
                             Console.Write("  ");
                         }
                         else
@@ -190,6 +190,8 @@ namespace ChessGame.Board
 
             /*            mappedChars[t.Item1 * 10 + mappedAlphabets[t.Item2]] = mappedChars[s.Item1 * 10 + mappedAlphabets[s.Item2]];
                         mappedChars[s.Item1*10+ mappedAlphabets[s.Item2]] = " ";*/
+
+           // Console.WriteLine(mappedChars[s.Item1 * 10 + mappedAlphabets[s.Item2]]);
             bool isWhite = whitePieces.Any(piece => piece == mappedChars[s.Item1 * 10 + mappedAlphabets[s.Item2]]);
 
             int Spos = s.Item1 * 10 + mappedAlphabets[s.Item2];

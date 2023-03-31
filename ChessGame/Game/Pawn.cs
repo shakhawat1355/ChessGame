@@ -23,31 +23,32 @@ namespace ChessGame.Game
         {
             int[] possibleMoves = new int[3];
 
-            int[] movesForWhite = { 9, 10, 11 };
-            int[] movesForBlack = { -9, -10, -11 };
+            int[] movesForWhite = { -9, -10, -11 };
+            int[] movesForBlack = { 9, 10, 11 };
+
             Array.Clear(possibleMoves,0, possibleMoves.Length);
 
 
-            if (isWhite)
-            {
-                for(int i = 0; i < 3; i++)
-                {
-                    possibleMoves[i] = position +   movesForWhite[i];
-                }
-            }
-            else
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    possibleMoves[i] = position + movesForBlack[i];
-                }
-            }
+            /*            if (isWhite)
+                        {
+                            for(int i = 0; i < 3; i++)
+                            {
+                                possibleMoves[i] = position +   movesForWhite[i];
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < 3; i++)
+                            {
+                                possibleMoves[i] = position + movesForBlack[i];
+                            }
+                        }*/
 
-/*            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 possibleMoves[i] = position + (isWhite ? movesForWhite[i] : movesForBlack[i]);
             }
-*/
+
             return possibleMoves;
 
         }
